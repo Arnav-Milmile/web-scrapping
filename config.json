@@ -1,0 +1,33 @@
+{
+  "rate_limits": {
+    "mouthshut": {"delay_seconds": [2, 4], "max_pages": 20},
+    "consumercomplaints": {"delay_seconds": [2, 3], "max_pages": 15},
+    "amazon": {"delay_seconds": [4, 7], "max_pages": 10},
+    "flipkart": {"delay_seconds": [3, 6], "max_pages": 10},
+    "google_maps": {"scroll_pause_ms": 1500, "max_scrolls": 30},
+    "reddit": {"requests_per_minute": 60, "max_posts_per_query": 100}
+  },
+  "playwright": {"headless": true, "timeout_ms": 15000},
+  "reddit_credentials": {
+    "client_id": "YOUR_CLIENT_ID",
+    "client_secret": "YOUR_CLIENT_SECRET",
+    "user_agent": "carrier-scraper/1.0 by YOUR_USERNAME"
+  },
+  "google_maps_queries": [
+    "Carrier service center India",
+    "Carrier dealer India",
+    "Carrier AC repair India",
+    "Carrier installation India"
+  ],
+  "reddit_queries": [
+    "carrier ac complaint",
+    "carrier air conditioner issue",
+    "carrier ac service complaint",
+    "carrier ac not cooling",
+    "carrier ac installation problem"
+  ],
+  "output": {
+    "raw_dir": "data/raw/",
+    "final_file": "data/final/carrier_dataset.jsonl"
+  }
+}
