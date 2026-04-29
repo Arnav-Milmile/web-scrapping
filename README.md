@@ -13,6 +13,7 @@ A simple web scraping pipeline built to generate a custom dataset for a promptat
 1. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
+   playwright install chromium
    ```
    *(Note: Set your Reddit API credentials in `config.json` before running the Reddit scraper).*
 

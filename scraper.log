@@ -4173,3 +4173,129 @@
 2026-04-29 17:37:50 [INFO] __main__: ============================================================
 2026-04-29 17:37:50 [INFO] __main__: Raw files: data/raw/
 2026-04-29 17:37:50 [INFO] __main__: Pipeline finished at 2026-04-29T17:37:50.579455
+2026-04-29 19:53:31 [INFO] __main__: Loaded config from C:\Users\Hp\Desktop\web_scrapping\carrier_scraper\config.json
+2026-04-29 19:53:31 [INFO] __main__: Pipeline started at 2026-04-29T19:53:31.871928
+2026-04-29 19:53:31 [INFO] __main__: Sources to scrape: google_maps
+2026-04-29 19:53:31 [INFO] __main__: 
+############################################################
+2026-04-29 19:53:31 [INFO] __main__: # Starting source: GOOGLE_MAPS
+2026-04-29 19:53:31 [INFO] __main__: ############################################################
+
+2026-04-29 19:53:36 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier service center India
+2026-04-29 19:53:57 [WARNING] scrapers.google_maps: Error processing query Carrier service center India: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("input#searchboxinput") to be visible
+
+2026-04-29 19:53:57 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier dealer India
+2026-04-29 19:54:12 [WARNING] scrapers.google_maps: Error processing query Carrier dealer India: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("input#searchboxinput") to be visible
+
+2026-04-29 19:54:12 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier AC repair India
+2026-04-29 19:54:29 [WARNING] scrapers.google_maps: Error processing query Carrier AC repair India: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("input#searchboxinput") to be visible
+
+2026-04-29 19:54:29 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier installation India
+2026-04-29 19:54:45 [WARNING] scrapers.google_maps: Error processing query Carrier installation India: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("input#searchboxinput") to be visible
+
+2026-04-29 19:54:45 [INFO] scrapers.google_maps: Completed GoogleMaps scrape with 0 records
+2026-04-29 19:54:45 [INFO] __main__: Source google_maps complete: 0 records
+2026-04-29 19:54:45 [INFO] __main__: No output file found for google_maps
+2026-04-29 19:54:45 [INFO] __main__: 
+============================================================
+2026-04-29 19:54:45 [INFO] __main__: PIPELINE SUMMARY
+2026-04-29 19:54:45 [INFO] __main__: ============================================================
+2026-04-29 19:54:45 [INFO] __main__:   google_maps              :      0 records
+2026-04-29 19:54:45 [INFO] __main__:   TOTAL                    :      0 records
+2026-04-29 19:54:45 [INFO] __main__: ============================================================
+2026-04-29 19:54:45 [INFO] __main__: Raw files: data/raw/
+2026-04-29 19:54:45 [INFO] __main__: Pipeline finished at 2026-04-29T19:54:45.499476
+2026-04-29 20:01:40 [INFO] __main__: Loaded config from C:\Users\Hp\Desktop\web_scrapping\carrier_scraper\config.json
+2026-04-29 20:01:40 [INFO] __main__: Pipeline started at 2026-04-29T20:01:40.442539
+2026-04-29 20:01:40 [INFO] __main__: Sources to scrape: google_maps
+2026-04-29 20:01:40 [INFO] __main__: 
+############################################################
+2026-04-29 20:01:40 [INFO] __main__: # Starting source: GOOGLE_MAPS
+2026-04-29 20:01:40 [INFO] __main__: ############################################################
+
+2026-04-29 20:01:41 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier service center India
+2026-04-29 20:01:58 [INFO] scrapers.google_maps: Found 5 places for query 'Carrier service center India'
+2026-04-29 20:01:58 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Service+Center/...
+2026-04-29 20:02:52 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:04:27 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Service+Centre/dat...
+2026-04-29 20:05:19 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+%2...
+2026-04-29 20:06:16 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier/data=!4m7!3m6!1s0x...
+2026-04-29 20:07:09 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier dealer India
+2026-04-29 20:07:22 [INFO] scrapers.google_maps: Found 6 places for query 'Carrier dealer India'
+2026-04-29 20:07:22 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+%2...
+2026-04-29 20:08:18 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+AC+Dealer/data=!4m...
+2026-04-29 20:09:43 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+an...
+2026-04-29 20:10:36 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier/data=!4m7!3m6!1s0x...
+2026-04-29 20:11:29 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Dealers/data=!4...
+2026-04-29 20:12:21 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier AC repair India
+2026-04-29 20:12:34 [INFO] scrapers.google_maps: Found 6 places for query 'Carrier AC repair India'
+2026-04-29 20:12:34 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Service+Center/...
+2026-04-29 20:13:27 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:15:00 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/CARRIER+AC+SERVICE+CENTER+...
+2026-04-29 20:15:53 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Ac+care+india/data=!4m7!3m...
+2026-04-29 20:18:52 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier/data=!4m7!3m6!1s0x...
+2026-04-29 20:19:47 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier installation India
+2026-04-29 20:19:59 [INFO] scrapers.google_maps: Found 7 places for query 'Carrier installation India'
+2026-04-29 20:19:59 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:21:08 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Pvt+Lt...
+2026-04-29 20:22:04 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+%2...
+2026-04-29 20:23:02 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Service+Center/...
+2026-04-29 20:23:30 [INFO] __main__: Loaded config from C:\Users\Hp\Desktop\web_scrapping\carrier_scraper\config.json
+2026-04-29 20:23:30 [INFO] __main__: Pipeline started at 2026-04-29T20:23:30.329996
+2026-04-29 20:23:30 [INFO] __main__: Sources to scrape: google_maps
+2026-04-29 20:23:30 [INFO] __main__: 
+############################################################
+2026-04-29 20:23:30 [INFO] __main__: # Starting source: GOOGLE_MAPS
+2026-04-29 20:23:30 [INFO] __main__: ############################################################
+
+2026-04-29 20:23:31 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier service center India
+2026-04-29 20:23:49 [WARNING] scrapers.google_maps: No results found for query: Carrier service center India
+2026-04-29 20:23:49 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier dealer India
+2026-04-29 20:23:56 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier/data=!4m7!3m6!1s0x...
+2026-04-29 20:24:02 [INFO] scrapers.google_maps: Found 6 places for query 'Carrier dealer India'
+2026-04-29 20:24:02 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:24:49 [INFO] scrapers.google_maps: Completed GoogleMaps scrape with 825 records
+2026-04-29 20:24:49 [INFO] __main__: Source google_maps complete: 825 records
+2026-04-29 20:24:49 [INFO] __main__: 
+==================================================
+2026-04-29 20:24:49 [INFO] __main__: DISTRIBUTION — google_maps
+2026-04-29 20:24:49 [INFO] __main__: ==================================================
+2026-04-29 20:24:49 [INFO] __main__:   Total records:     825
+2026-04-29 20:24:49 [INFO] __main__:   AC-related:        75 (9.1%)
+2026-04-29 20:24:49 [INFO] __main__:   Service-related:   437 (53.0%)
+2026-04-29 20:24:49 [INFO] __main__:   Other:             285 (34.5%)
+2026-04-29 20:24:49 [INFO] __main__:   Unknown product:   825 (100.0%)
+2026-04-29 20:24:49 [INFO] __main__: ==================================================
+
+2026-04-29 20:24:49 [INFO] __main__: 
+============================================================
+2026-04-29 20:24:49 [INFO] __main__: PIPELINE SUMMARY
+2026-04-29 20:24:49 [INFO] __main__: ============================================================
+2026-04-29 20:24:49 [INFO] __main__:   google_maps              :    825 records
+2026-04-29 20:24:49 [INFO] __main__:   TOTAL                    :    825 records
+2026-04-29 20:24:49 [INFO] __main__: ============================================================
+2026-04-29 20:24:49 [INFO] __main__: Raw files: data/raw/
+2026-04-29 20:24:49 [INFO] __main__: Pipeline finished at 2026-04-29T20:24:49.458437
+2026-04-29 20:25:10 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+%2...
+2026-04-29 20:26:10 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+AC+Dealer/data=!4m...
+2026-04-29 20:27:06 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Airconditioning+an...
+2026-04-29 20:28:01 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Dealers/data=!4...
+2026-04-29 20:28:54 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier AC repair India
+2026-04-29 20:29:07 [INFO] scrapers.google_maps: Found 3 places for query 'Carrier AC repair India'
+2026-04-29 20:29:07 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:30:27 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Service+Center/...
+2026-04-29 20:31:22 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Air+Conditioning+%...
+2026-04-29 20:32:16 [INFO] scrapers.google_maps: Searching Google Maps for: Carrier installation India
+2026-04-29 20:32:28 [INFO] scrapers.google_maps: Found 4 places for query 'Carrier installation India'
+2026-04-29 20:32:28 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Privat...
+2026-04-29 20:33:48 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Midea+India+Pvt+Lt...
+2026-04-29 20:34:45 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Ac+Service+Center/...
+2026-04-29 20:35:38 [INFO] scrapers.google_maps: Scraping place: https://www.google.com/maps/place/Carrier+Air+Conditioning+%...
