@@ -13,6 +13,7 @@ import json
 import logging
 import sys
 import os
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -82,6 +83,143 @@ def import_scraper(source_key: str):
         return None
 
 
+def normalize_text_for_dedupe(value: str) -> str:
+    """Normalize text for duplicate detection."""
+    if not value:
+        return ""
+
+    normalized = value.strip().lower()
+    normalized = re.sub(r"\s+", " ", normalized)
+    normalized = re.sub(r"[^\w\s]", "", normalized)
+    return normalized
+
+
+def dedupe_records(records: list[dict]) -> list[dict]:
+    """Deduplicate records by normalized text/title/url."""
+    seen = set()
+    unique = []
+
+    for record in records:
+        text_key = normalize_text_for_dedupe(record.get("text", ""))
+        title_key = normalize_text_for_dedupe(record.get("title", ""))
+        url_key = (record.get("url") or "").strip()
+
+        dedupe_key = (text_key, title_key, url_key)
+        if dedupe_key in seen:
+            continue
+
+        short_key = (text_key, title_key)
+        if short_key in seen:
+            continue
+
+        seen.add(dedupe_key)
+        seen.add(short_key)
+        unique.append(record)
+
+    return unique
+
+
+def clean_raw_file(source_path: Path, output_path: Path) -> int:
+    """Read a raw JSONL file, dedupe its records, and write a cleaned file."""
+    if not source_path.exists():
+        return 0
+
+    records = []
+    with open(source_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                records.append(json.loads(line))
+            except json.JSONDecodeError:
+                logger.warning(f"Skipping invalid JSON line in {source_path}: {line[:120]}")
+
+    unique = dedupe_records(records)
+    with open(output_path, "w", encoding="utf-8") as f:
+        for record in unique:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    return len(unique)
+
+
+def clean_all_raw_files(config: dict) -> dict[str, int]:
+    """Clean all raw JSONL files in the raw directory and write cleaned versions."""
+    raw_dir = Path(config["output"]["raw_dir"])
+    raw_dir.mkdir(parents=True, exist_ok=True)
+
+    cleaned_counts = {}
+    for raw_file in sorted(raw_dir.glob("*.jsonl")):
+        if raw_file.stem.endswith("_cleaned"):
+            continue
+
+        cleaned_file = raw_dir / f"{raw_file.stem}_cleaned.jsonl"
+        logger.info(f"Cleaning {raw_file.name} → {cleaned_file.name}")
+        count = clean_raw_file(raw_file, cleaned_file)
+        cleaned_counts[raw_file.stem] = count
+        logger.info(f"  {raw_file.name}: {count} unique records")
+
+    if not cleaned_counts:
+        logger.info("No raw JSONL files found to clean.")
+
+    return cleaned_counts
+
+
+def merge_to_final(config: dict):
+    """Merge cleaned source files into the final dataset."""
+    raw_dir = Path(config["output"]["raw_dir"])
+    final_file = Path(config["output"]["final_file"])
+    final_file.parent.mkdir(parents=True, exist_ok=True)
+
+    source_files = {}
+    for path in sorted(raw_dir.glob("*.jsonl")):
+        name = path.stem
+        if name.endswith("_cleaned"):
+            source_name = name[:-8]
+            source_files[source_name] = path
+        elif name not in source_files:
+            source_files[name] = path
+
+    total = 0
+    source_counts = {}
+    seen = set()
+
+    with open(final_file, "w", encoding="utf-8") as out:
+        for source_name, jsonl_file in source_files.items():
+            count = 0
+            with open(jsonl_file, "r", encoding="utf-8") as inp:
+                for line in inp:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        record = json.loads(line)
+                    except json.JSONDecodeError:
+                        logger.warning(f"Invalid JSON line in {jsonl_file}")
+                        continue
+
+                    merged_key = (
+                        normalize_text_for_dedupe(record.get("text", "")),
+                        normalize_text_for_dedupe(record.get("title", "")),
+                    )
+                    if merged_key in seen:
+                        continue
+
+                    seen.add(merged_key)
+                    out.write(json.dumps(record, ensure_ascii=False) + "\n")
+                    count += 1
+                    total += 1
+
+            source_counts[source_name] = count
+
+    logger.info(f"\nFinal dataset: {final_file}")
+    logger.info(f"Total records: {total}")
+    for source, count in source_counts.items():
+        logger.info(f"  {source}: {count}")
+
+    return total
+
+
 def log_distribution(source_name: str, output_dir: str):
     """
     Log distribution tracking after a scraper completes.
@@ -145,36 +283,6 @@ def log_distribution(source_name: str, output_dir: str):
         )
 
 
-def merge_to_final(config: dict):
-    """Merge all raw JSONL files into the final dataset."""
-    raw_dir = Path(config["output"]["raw_dir"])
-    final_file = Path(config["output"]["final_file"])
-    final_file.parent.mkdir(parents=True, exist_ok=True)
-
-    total = 0
-    source_counts = {}
-
-    with open(final_file, "w", encoding="utf-8") as out:
-        for jsonl_file in sorted(raw_dir.glob("*.jsonl")):
-            source_name = jsonl_file.stem
-            count = 0
-            with open(jsonl_file, "r", encoding="utf-8") as inp:
-                for line in inp:
-                    line = line.strip()
-                    if line:
-                        out.write(line + "\n")
-                        count += 1
-            source_counts[source_name] = count
-            total += count
-
-    logger.info(f"\nFinal dataset: {final_file}")
-    logger.info(f"Total records: {total}")
-    for source, count in source_counts.items():
-        logger.info(f"  {source}: {count}")
-
-    return total
-
-
 def main():
     parser = argparse.ArgumentParser(
         description="Carrier complaint/review scraping pipeline"
@@ -188,6 +296,11 @@ def main():
             + ", ".join(AVAILABLE_SOURCES.keys())
             + ", all"
         ),
+    )
+    parser.add_argument(
+        "--clean",
+        action="store_true",
+        help="Clean/dedupe individual raw source files before merging",
     )
     parser.add_argument(
         "--merge",
@@ -206,8 +319,15 @@ def main():
     Path(config["output"]["final_file"]).parent.mkdir(parents=True, exist_ok=True)
 
     # Handle merge-only mode
-    if args.merge:
+    if args.merge and not args.sources and not args.clean:
         merge_to_final(config)
+        return
+
+    # Handle clean-only or clean+merge without scraping
+    if args.clean and not args.sources:
+        clean_all_raw_files(config)
+        if args.merge:
+            merge_to_final(config)
         return
 
     # Determine which sources to scrape
@@ -265,6 +385,15 @@ def main():
     logger.info(f"  {'TOTAL':25s}: {total:>6d} records")
     logger.info(f"{'='*60}")
     logger.info(f"Raw files: {raw_dir}")
+
+    if args.clean:
+        logger.info("\nStarting cleanup of raw source files...")
+        clean_all_raw_files(config)
+
+    if args.merge:
+        logger.info("\nStarting final merge of source files...")
+        merge_to_final(config)
+
     logger.info(f"Pipeline finished at {datetime.now().isoformat()}")
 
 

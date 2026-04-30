@@ -26,8 +26,20 @@ A simple web scraping pipeline built to generate a custom dataset for a promptat
    python main.py
    ```
 
-3. **Merge the final dataset:**
+3. **Clean duplicate source records:**
+   ```bash
+   python main.py --clean
+   ```
+   This will deduplicate each source file and write cleaned files next to the raw outputs.
+
+4. **Merge the final dataset:**
    ```bash
    python main.py --merge
    ```
-   This will combine everything into `data/final/carrier_dataset.jsonl`.
+   This will combine cleaned files (or raw files if cleaned versions are missing) into `data/final/carrier_dataset.jsonl`.
+
+5. **Run all steps in one command:**
+   ```bash
+   python main.py --sources all --clean --merge
+   ```
+   This scrapes all sources, cleans duplicates, and merges the dataset.
